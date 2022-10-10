@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:id="@+id/ll_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:background="@color/theme"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:onClick="Back"
+                    android:src="@drawable/back_light_blue" />
+                <TextView
+                    android:fontFamily="@font/mina_reguler"
+                    android:id="@+id/title"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/conditionandprices"
+                    android:textSize="@dimen/_14sdp"/>
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tvDescripion"
+                android:fontFamily="@font/mina_reguler"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:padding="@dimen/_2sdp"
+                android:layout_weight="8"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textSize="12sp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/navcolor"
+        android:id="@+id/layout_btm"
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/layoutHistory"
+            android:orientation="vertical"
+            android:padding="@dimen/_6sdp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/history"
+                android:padding="@dimen/_2sdp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/imgHistory"
+                android:tint="@color/steal"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:id="@+id/txt_History"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_9sdp"
+                android:fontFamily="@font/corben"
+                android:textColor="@color/steal"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_Video"
+            android:orientation="vertical"
+            android:padding="@dimen/_6sdp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/video"
+                android:padding="@dimen/_2sdp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/img_Video"
+                android:tint="@color/steal"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Video"
+                android:id="@+id/txt_Video"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_9sdp"
+                android:fontFamily="@font/corben"
+                android:textColor="@color/steal"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/layout_Setting"
+            android:orientation="vertical"
+            android:padding="@dimen/_6sdp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:src="@drawable/setting"
+                android:padding="@dimen/_2sdp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/img_Setting"
+                android:tint="@color/white"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Setting"
+                android:id="@+id/txt_Setting"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_9sdp"
+                android:fontFamily="@font/corben"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

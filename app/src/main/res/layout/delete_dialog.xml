@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/_200sdp"
+    android:background="@drawable/rounded_button_editback"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="@dimen/_10sdp"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="Video Message"
+        android:layout_centerVertical="true"
+        android:textColor="@color/theme"/>
+    <TextView
+        android:id="@+id/tvDescripion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:padding="@dimen/_10sdp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="Would you like to delete your account permanently?"
+        android:layout_centerVertical="true"
+        android:textColor="@color/theme"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/_1sdp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/_1sdp"
+
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="@dimen/_7sdp"
+            android:backgroundTint="#E6E2E2"
+            android:background="@drawable/rounded_button_editback"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="Cancel"
+            android:layout_centerVertical="true"
+            android:textColor="#2196F3"/>
+        <TextView
+            android:id="@+id/tvOk"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/_1sdp"
+            android:backgroundTint="#E6E2E2"
+            android:background="@drawable/rounded_button_editback"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:padding="@dimen/_7sdp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="Ok"
+            android:layout_centerVertical="true"
+            android:textColor="#2196F3"/>
+    </LinearLayout>
+
+</LinearLayout>
