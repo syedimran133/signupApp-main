@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-feature
         android:name="android.hardware.location.gps"
         android:required="true" />
@@ -28,7 +29,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.SignupApp"
         android:usesCleartextTraffic="true"
@@ -41,13 +42,16 @@
         <activity
             android:name=".ConditionsandPricesActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".SendingVideoActivity"
+            android:exported="false"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".TermsAndConditionActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
 
@@ -84,42 +88,52 @@
 
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:exported="false"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".ProfileActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ImagePickerActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ChangePasswordActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".SignUpActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".utility.FacebookActivityInner"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

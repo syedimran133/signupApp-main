@@ -3,13 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/theme"
+    android:background="@drawable/backg"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/theme"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -59,7 +58,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
-                android:tint="@color/white" />
+                app:tint="@color/white" />
 
             <ImageView
                 android:id="@+id/ivDownload"
@@ -75,7 +74,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
-                android:tint="@color/white" />
+                app:tint="@color/white" />
 
             <ImageView
                 android:id="@+id/ivShare"
@@ -92,7 +91,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp"
                 android:textStyle="bold"
-                android:tint="@color/white" />
+                app:tint="@color/white" />
         </RelativeLayout>
         <!--   <androidx.constraintlayout.widget.ConstraintLayout
                    android:layout_width="match_parent"
@@ -134,7 +133,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:src="@drawable/fullscreen"
-                android:tint="@color/background_progress_color" />
+                app:tint="@color/background_progress_color" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -189,7 +188,7 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="@dimen/_2sdp"
                     android:src="@drawable/history"
-                    android:tint="@color/steal" />
+                    app:tint="@color/steal" />
 
                 <TextView
                     android:id="@+id/txt_History"
@@ -218,7 +217,7 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="@dimen/_2sdp"
                     android:src="@drawable/video"
-                    android:tint="@color/steal" />
+                    app:tint="@color/steal" />
 
                 <TextView
                     android:id="@+id/txt_Video"
@@ -247,7 +246,7 @@
                     android:layout_gravity="center_horizontal"
                     android:padding="@dimen/_2sdp"
                     android:src="@drawable/setting"
-                    android:tint="@color/white" />
+                    app:tint="@color/white" />
 
                 <TextView
                     android:id="@+id/txt_Setting"

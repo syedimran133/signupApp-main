@@ -3,6 +3,37 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/drawable-v24/rounded_button_editback_blue.xml" value="0.1955" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/drawable/rounded_button_editback.xml" value="0.1955" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/drawable/upload_bg.xml" value="0.1" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_change_password.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_conditionsand_prices.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_forget_password.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_image_picker.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_login.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_main.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_main2.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_maps.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_profile.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_sending_payment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_sending_video.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_sign_up.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/activity_terms_and_condition.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/date_fragment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/delete_dialog.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/gallery_layout.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/history_fragment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/history_item_adapter.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/history_item_receiver_adapter.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/layout_fb.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/my_video_background.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/pay_summery_fragment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/receiver_email_fragment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/setting_fragment.xml" value="0.25" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/showing_video_fragment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/time_fragment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/layout/video_fragment.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/Syed Imran Iqbal/AndroidStudioProjects/SignupApp-main/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="..\:/experiment/SignupApp/app/src/main/res/layout/activity_conditionsand_prices.xml" value="0.18297101449275363" />
         <entry key="..\:/experiment/SignupApp/app/src/main/res/layout/activity_login.xml" value="0.18659420289855072" />
         <entry key="..\:/experiment/SignupApp/app/src/main/res/layout/activity_main2.xml" value="0.12771739130434784" />

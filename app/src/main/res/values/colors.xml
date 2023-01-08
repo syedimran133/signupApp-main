@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="steal">#B3B1B1</color>
     <color name="theme">#0C2367</color>
-    <color name="navcolor">#142149</color>
+    <color name="navcolor">#000000</color>
     <color name="historyheding">#A11F3F9F</color>
 </resources>

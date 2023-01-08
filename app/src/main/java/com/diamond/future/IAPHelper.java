@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.android.billingclient.api.AcknowledgePurchaseParams;
 import com.android.billingclient.api.AcknowledgePurchaseResponseListener;
 import com.android.billingclient.api.BillingClient;
@@ -13,6 +15,8 @@ import com.android.billingclient.api.BillingResult;
 import com.android.billingclient.api.ConsumeParams;
 import com.android.billingclient.api.ConsumeResponseListener;
 import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesResponseListener;
+import com.android.billingclient.api.PurchasesResult;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetails;
 import com.android.billingclient.api.SkuDetailsParams;
@@ -80,9 +84,16 @@ public class IAPHelper {
      * Get purchases details for all the items bought within your app.
      */
     public void getPurchasedItems() {
-        Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+       /* Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
         if (IAPHelperListener != null)
-            IAPHelperListener.onPurchasehistoryResponse(purchasesResult.getPurchasesList());
+            IAPHelperListener.onPurchasehistoryResponse(purchasesResult.getPurchasesList());*/
+        mBillingClient.queryPurchasesAsync(BillingClient.SkuType.INAPP, new PurchasesResponseListener() {
+            @Override
+            public void onQueryPurchasesResponse(@NonNull BillingResult billingResult, @NonNull List<Purchase> list) {
+                if (IAPHelperListener != null)
+                    IAPHelperListener.onPurchasehistoryResponse(list);
+            }
+        });
     }
 
     /**
@@ -133,7 +144,7 @@ public class IAPHelper {
                     //I have named sku in such a way that I get sku name as "type_name" for ex: "nc_ring"
                     //For non consumable I will acknowledge purchase
                     //For consumable I will consume purchase
-                    String type = purchase.getSku().split("_")[0];
+                    String type = purchase.getSkus().get(0).split("_")[0];
                     if(type.equals("nc"))
                         acknowledgePurchase(purchase);
                     else

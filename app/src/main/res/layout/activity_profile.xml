@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity"
     android:paddingBottom="@dimen/_30sdp"
-    android:background="@color/theme"
+    android:background="@drawable/backg"
     android:paddingLeft="@dimen/_5sdp"
     android:paddingRight="@dimen/_5sdp"
     android:paddingTop="@dimen/_30sdp"

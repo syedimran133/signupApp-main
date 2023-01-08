@@ -2,6 +2,7 @@ package com.diamond.future;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -23,10 +24,13 @@ import com.diamond.future.fragment.SettingFragment;
 import com.diamond.future.fragment.TimeFragment;
 import com.diamond.future.fragment.VideoFragment;
 
+import java.net.URI;
+
 public class MainActivity extends AppCompatActivity {
     LinearLayout layoutHistory, layout_Video, layout_Setting;
     ImageView imgHistory, img_Video, img_Setting;
     TextView txt_History, txt_Video, txt_Setting;
+    public static Uri uri;
     SendingPaymentActivity sendingPaymentActivity;
     public interface OnItemClickListener {
 
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        uri= Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.final_render_earth);
         initView();
     }
 

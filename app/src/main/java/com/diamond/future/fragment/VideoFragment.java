@@ -8,22 +8,29 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
 import com.diamond.future.MainActivity;
 import com.diamond.future.R;
 import com.diamond.future.service.AppLocationService;
@@ -44,14 +51,17 @@ import static android.app.Activity.RESULT_OK;
 import static com.diamond.future.fragment.DateFragment.uploadingModel;
 import static com.diamond.future.fragment.HistoryFragment.videoItem;
 
-
+//final_render_earth.mp4
 public class VideoFragment extends Fragment {
     View v;
+    RelativeLayout video_ll;
+    LinearLayout body_ll;
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     AppLocationService appLocationService;
     double latitude1 = 0.0;
     double longitude1 = 0.0;
-    LinearLayout llUpload,llRecord;
+    LinearLayout llUpload, llRecord;
+    VideoView video_bg;
     private static final int REQUEST_TAKE_GALLERY_VIDEO = 1;
     String[] PERMISSIONS = {
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -61,7 +71,7 @@ public class VideoFragment extends Fragment {
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
     private static final int PERMISSION_REQ_CODE = 1 << 4;
-    boolean recordState=false;
+    boolean recordState = false;
     //Java
     ActivityResultLauncher<Intent> startForResult = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -80,12 +90,33 @@ public class VideoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.video_fragment, container, false);
-        appLocationService = new AppLocationService(getContext(),getActivitys());
-        getloc();
+        appLocationService = new AppLocationService(getContext(), getActivitys());
         initView();
+        getloc();
         checkPermission();
         return v;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        video_bg = (VideoView) v.findViewById(R.id.videoView);
+        video_bg.setVideoURI(MainActivity.uri);
+        video_bg.setDrawingCacheEnabled(true);
+        video_bg.start();
+        video_bg.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                mp.setLooping(true);
+            }
+        });
+    }
+
     private void checkPermission() {
         boolean granted = true;
         for (String per : PERMISSIONS) {
@@ -96,9 +127,9 @@ public class VideoFragment extends Fragment {
         }
         if (granted) {
             //showTermsPrivacyDialog();
-            if(recordState) {
+            if (recordState) {
                 Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,5*60);
+                takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 5 * 60);
                 if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takeVideoIntent, 101);
                 }
@@ -107,6 +138,7 @@ public class VideoFragment extends Fragment {
             requestPermissions();
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         if (requestCode == PERMISSION_REQ_CODE) {
@@ -117,9 +149,9 @@ public class VideoFragment extends Fragment {
             }
 
             if (granted) {
-                if(recordState) {
+                if (recordState) {
                     Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                    takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,5*60);
+                    takeVideoIntent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 5 * 60);
                     if (takeVideoIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                         startActivityForResult(takeVideoIntent, 101);
                     }
@@ -128,32 +160,47 @@ public class VideoFragment extends Fragment {
             }
         }
     }
+
     private void requestPermissions() {
         ActivityCompat.requestPermissions(getActivity(), PERMISSIONS, PERMISSION_REQ_CODE);
     }
+
     private boolean permissionGranted(String permission) {
         return ContextCompat.checkSelfPermission(
                 getContext(), permission) == PackageManager.PERMISSION_GRANTED;
     }
+
     private void initView() {
-        llRecord=v.findViewById(R.id.llRecord);
-        llUpload=v.findViewById(R.id.llUpload);
-        llUpload.setOnClickListener(V->{
-            recordState=false;
+        llRecord = v.findViewById(R.id.llRecord);
+        llUpload = v.findViewById(R.id.llUpload);
+        video_ll= v.findViewById(R.id.video_ll);
+        video_ll.setVisibility(View.INVISIBLE);
+        body_ll= v.findViewById(R.id.body_ll);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                video_ll.setVisibility(View.VISIBLE);
+                //write your code here to be executed after 1 second
+            }
+        }, 500);
+        llUpload.setOnClickListener(V -> {
+            recordState = false;
             uploadingModel.setUploadState(true);
             Intent intent = new Intent();
             intent.setType("video/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent,"Select Video"),REQUEST_TAKE_GALLERY_VIDEO);
+            startActivityForResult(Intent.createChooser(intent, "Select Video"), REQUEST_TAKE_GALLERY_VIDEO);
         });
-        llRecord.setOnClickListener(V->{
-            recordState=true;
+        llRecord.setOnClickListener(V -> {
+            recordState = true;
             uploadingModel.setUploadState(false);
             checkPermission();
 
         });
 
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
@@ -163,23 +210,24 @@ public class VideoFragment extends Fragment {
 //        .setCompressOption(new CompressOption()) //empty constructor for default compress option
                         .setHideSeekBar(true)
                         .setTrimType(TrimType.MIN_MAX_DURATION)
-                        .setMinToMax(2, 60*5)
-                        .start(this,startForResult);
+                        .setMinToMax(2, 60 * 5)
+                        .start(this, startForResult);
 
 
-            }else {
-                Uri uri =data.getData();
+            } else {
+                Uri uri = data.getData();
                 uploadingModel.setVideouri(uri);
                 Log.d("TAG", "Trimmed path:: " + uri);
                 ((MainActivity) getContext()).setFrag("datefrag");
             }
         } else if (resultCode == 101) {
-            Uri uri =data.getData();
+            Uri uri = data.getData();
             uploadingModel.setVideouri(uri);
             Log.d("TAG", "Trimmed path:: " + uri);
             ((MainActivity) getContext()).setFrag("datefrag");
         }
     }
+
     public void getloc() {
         try {
             if (checkAndRequestPermissions()) {
@@ -189,7 +237,7 @@ public class VideoFragment extends Fragment {
                 if (nwLocation != null) {
                     latitude1 = nwLocation.getLatitude();
                     longitude1 = nwLocation.getLongitude();
-                   // Toast.makeText(getContext(),""+latitude1+"\n"+longitude1,Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getContext(),""+latitude1+"\n"+longitude1,Toast.LENGTH_LONG).show();
                     //AppPrefrence.getInstance().setUserAddMoneyData(AppSingle.getInstance().getActivity().getUserJson(address.getPremises()+" ,"+address.getSubLocality(),address.getLocality(),address.getPostalCode(),address.getAdminArea(),address.getCountryName(),AppSingle.getInstance().getActivity().getIMEI(),AppSingle.getInstance().getActivity().getLocalIpAddress()));
                 } else {
                     //showSettingsAlert("NETWORK");
@@ -200,6 +248,7 @@ public class VideoFragment extends Fragment {
         } catch (Exception e) {
         }
     }
+
     public boolean checkAndRequestPermissions() {
         try {
             int locationPermission = ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION);
@@ -225,13 +274,14 @@ public class VideoFragment extends Fragment {
         }
         return true;
     }
+
     public Activity getActivitys() {
         Context context = getContext();
         while (context instanceof ContextWrapper) {
             if (context instanceof Activity) {
-                return (Activity)context;
+                return (Activity) context;
             }
-            context = ((ContextWrapper)context).getBaseContext();
+            context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
     }

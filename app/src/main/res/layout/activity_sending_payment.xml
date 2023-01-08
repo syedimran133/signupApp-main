@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme"
+    android:background="@drawable/backg"
     android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/theme"
             android:orientation="vertical">
             <RelativeLayout
                 android:id="@+id/ll_title"
@@ -130,8 +130,7 @@
                 android:padding="@dimen/_2sdp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/imgHistory"
-                android:tint="@color/steal"
-                />
+                app:tint="@color/steal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -159,8 +158,7 @@
                 android:padding="@dimen/_2sdp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/img_Video"
-                android:tint="@color/steal"
-                />
+                app:tint="@color/steal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -188,8 +186,7 @@
                 android:padding="@dimen/_2sdp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/img_Setting"
-                android:tint="@color/white"
-                />
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"

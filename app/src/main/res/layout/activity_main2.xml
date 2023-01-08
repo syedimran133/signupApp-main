@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme"
+    android:orientation="vertical"
+    android:weightSum="1280"
     tools:context=".MainActivity">
+
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1170"
         />
 
 
@@ -17,8 +20,9 @@
         android:layout_width="match_parent"
         android:background="@color/navcolor"
         android:id="@+id/layout_btm"
-        android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content"
+        android:layout_weight="110"
+        android:layout_alignBottom="@id/fragment_container"
+        android:layout_height="0dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -36,8 +40,7 @@
                 android:padding="@dimen/_2sdp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/imgHistory"
-                android:tint="@color/white"
-                />
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,8 +68,7 @@
                 android:padding="@dimen/_2sdp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/img_Video"
-                android:tint="@color/steal"
-                />
+                app:tint="@color/steal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,8 +96,7 @@
                 android:padding="@dimen/_2sdp"
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/img_Setting"
-                android:tint="@color/steal"
-                />
+                app:tint="@color/steal" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -111,4 +112,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

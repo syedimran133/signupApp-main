@@ -3,18 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/theme"
+    android:background="@drawable/backg"
     android:paddingBottom="@dimen/_30sdp"
     android:orientation="vertical">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/theme"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/theme"
             android:orientation="vertical">
             <RelativeLayout
                 android:id="@+id/ll_title"
@@ -51,14 +49,14 @@
                     android:layout_centerInParent="true"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_25sdp"
-                    android:tint="@color/white"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:padding="@dimen/_2sdp"
                     android:textColor="@color/white"
                     android:text=""
                     android:textStyle="bold"
                     android:src="@drawable/trash"
-                    android:textSize="@dimen/_14sdp"/>
+                    android:textSize="@dimen/_14sdp"
+                    app:tint="@color/white" />
                 <ImageView
                     android:fontFamily="@font/mina_reguler"
                     android:id="@+id/ivDownload"
@@ -67,13 +65,13 @@
                     android:layout_centerInParent="true"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:tint="@color/white"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:textColor="@color/white"
                     android:text=""
                     android:textStyle="bold"
                     android:src="@drawable/download"
-                    android:textSize="@dimen/_14sdp"/>
+                    android:textSize="@dimen/_14sdp"
+                    app:tint="@color/white" />
                 <ImageView
                     android:fontFamily="@font/mina_reguler"
                     android:id="@+id/ivShare"
@@ -83,13 +81,13 @@
                     android:layout_centerInParent="true"
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
-                    android:tint="@color/white"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:textColor="@color/white"
                     android:text=""
                     android:textStyle="bold"
                     android:src="@drawable/share"
-                    android:textSize="@dimen/_14sdp"/>
+                    android:textSize="@dimen/_14sdp"
+                    app:tint="@color/white" />
             </RelativeLayout>
          <!--   <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

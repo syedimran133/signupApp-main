@@ -3,15 +3,15 @@ plugins {
 }
 apply plugin: 'com.google.gms.google-services'
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.diamond.future"
         minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 43
-        versionName "1.43"
+        targetSdkVersion 33
+        versionCode 46
+        versionName "1.46"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -32,6 +32,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'com.android.billingclient:billing-ktx:5.1.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     //retroit
@@ -68,7 +69,7 @@ dependencies {
     //exoplyer
     implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
     //consumable builling
-    implementation 'com.android.billingclient:billing:3.0.3'
+    implementation 'com.android.billingclient:billing:5.1.0'
     //video  compressor
     implementation 'com.github.AbedElazizShe:LightCompressor:0.6.2'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.8"
