@@ -10,8 +10,8 @@ android {
         applicationId "com.diamond.future"
         minSdkVersion 23
         targetSdkVersion 33
-        versionCode 46
-        versionName "1.46"
+        versionCode 47
+        versionName "1.47"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

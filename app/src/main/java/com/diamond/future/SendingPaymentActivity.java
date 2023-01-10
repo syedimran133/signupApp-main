@@ -1,12 +1,14 @@
 package com.diamond.future;
 
 import static com.diamond.future.fragment.DateFragment.uploadingModel;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.loader.content.CursorLoader;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -87,7 +89,6 @@ import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okio.Buffer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -325,10 +326,10 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
         title.setText("Pay Summary");
         //todo:compressor
         //   if (uploadingModel.isUploadState() == false) {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Compressing..");
-        progressDialog.create();
-        progressDialog.show();
+        ProgressDialog progressDialog1 = new ProgressDialog(this);
+        progressDialog1.setMessage("Compressing..");
+        progressDialog1.create();
+        progressDialog1.show();
 
         VideoCompressor.INSTANCE.start(f.getPath(), streamablefile.getPath(), new CompressionListener() {
             @Override
@@ -339,7 +340,10 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
 
             @Override
             public void onSuccess() {
-                progressDialog.dismiss();
+                try {
+                    progressDialog1.dismiss();
+                } catch (Exception e) {
+                }
                 try {
                     // File f = new File(uploadingModel.getVideouri().getPath());
                     uploadsize = streamablefile.length() / (1024 * 1024);
@@ -354,7 +358,8 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
             @Override
             public void onFailure(@NotNull String s) {
                 //  Toast.makeText(getContext(), "Failed To Compress", Toast.LENGTH_LONG);
-                progressDialog.dismiss();
+                try{
+                progressDialog1.dismiss();}catch(Exception e){}
                 Log.e("onFailure", "onFailure");
             }
 
@@ -461,33 +466,7 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
             finish();
         });
     }
-    private void showDeleteDialog(String s) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
-        ViewGroup viewGroup = findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.delete_dialog, viewGroup, false);
-        TextView tvCancel = dialogView.findViewById(R.id.tvCancel);
-        TextView tvDescripion = dialogView.findViewById(R.id.tvDescripion);
-        TextView tvOk = dialogView.findViewById(R.id.tvOk);
-        // builder.setCancelable(false);
-        builder.setView(dialogView);
-        AlertDialog alertDialog = builder.create();
-        tvCancel.setVisibility(View.GONE);
-        tvDescripion.setText(s);
-        tvCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-        tvOk.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
-        alertDialog.show();
-    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void showDeleteDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomAlertDialog);
@@ -501,12 +480,177 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
         builder.setView(dialogView);
         AlertDialog alertDialog = builder.create();
         tvCancel.setVisibility(View.GONE);
-        String[] arr=MyTimeUtils.getGMTTimeString(uploadingModel.getDate()+"|"+uploadingModel.getTime());
-        newDate=arr[0];
-        newTime=arr[1];
-        String[] corrent=MyTimeUtils.getTime2();
-        String result=corrent[1]+" "+corrent[0];
-        tvDescripion.setText("Thank you for your payment.Your video have successfully sent.Selected GMT  Time is: " + result + ". Send Date: " + newDate + " SendTime: " + newTime + ". Compress File Size is :" + uploadsize + "MB");
+        DateTimeFormatter df = new DateTimeFormatterBuilder()
+                // case insensitive to parse JAN and FEB
+                .parseCaseInsensitive()
+                // add pattern
+                .appendPattern("dd-MM-yyyy H:m")
+                // create formatter (use English Locale to parse month names)
+                .toFormatter(Locale.ENGLISH);
+        LocalDate localdate = LocalDate.parse(uploadingModel.getDate() + " " + uploadingModel.getTimeToUpload(), df);
+
+        Date date = new Date();
+        date = Date.from(localdate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        System.out.println(date); //
+        DateFormat gmtFormat = new SimpleDateFormat();
+        TimeZone gmtTime = TimeZone.getTimeZone("GMT");
+        gmtFormat.setTimeZone(gmtTime);
+
+        Log.e("GMT Time: ", gmtFormat.format(date) + "");
+        /* DateTimeFormatter f = new DateTimeFormatterBuilder().appendPattern("d/M/yy h:mm a").toFormatter();
+        DateTimeFormatter f1 = new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy h:mm a").toFormatter();
+        DateTimeFormatter f5 = new DateTimeFormatterBuilder().appendPattern("M/dd/yy h:mm a").toFormatter();
+        LocalDateTime parsedDate;
+        try {
+            parsedDate = LocalDateTime.parse(gmtFormat.format(date) + "", f);
+
+        } catch (Exception e) {
+            try {
+                parsedDate = LocalDateTime.parse(gmtFormat.format(date) + "", f1);
+
+            } catch (Exception e1) {
+                parsedDate = LocalDateTime.parse(gmtFormat.format(date) + "", f5);
+
+            }
+
+        }*/
+        String time = uploadingModel.getTimeToUpload();
+        String[] timeParts = time.split(":");
+        Long total = (Long.parseLong(timeParts[0]) * (60000 * 60)) + (Long.parseLong(timeParts[1]) * 60000) + date.getTime();
+        Log.e("tagmili", total + "-" + time);
+
+        /*int offset = TimeZone.getDefault().getRawOffset() + TimeZone.getDefault().getDSTSavings();
+        Long newgmtTotal=total+offset;
+        Log.e("newgmtTotal", newgmtTotal+"");*/
+
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        System.out.println(sdf.format(new Date(total)));
+
+        SimpleDateFormat dfnew = new SimpleDateFormat("hh:mm a MM/dd/yyyy");
+        dfnew.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String result = dfnew.format(total);
+        System.out.println(result);
+       /* tvDescripion.setText("Thank you for your payment.Your video have successfully sent.Selected GMT  Time is: "
+                + result + ".Compress File Size is :" + uploadsize + "MB");*/
+
+        DateTimeFormatter f = new DateTimeFormatterBuilder().appendPattern("d/M/yy hh:mm a").toFormatter();
+        DateTimeFormatter f1 = new DateTimeFormatterBuilder().appendPattern("dd/MM/yyyy hh:mm a").toFormatter();
+        DateTimeFormatter f5 = new DateTimeFormatterBuilder().appendPattern("M/d/yy hh:mm a").toFormatter();
+        DateTimeFormatter fg = new DateTimeFormatterBuilder().appendPattern("hh:mm a MM/dd/yyyy").toFormatter();
+        LocalDateTime parsedDate;
+
+        try {
+            parsedDate = LocalDateTime.parse(result, f5);
+            Log.e("parsedate", parsedDate.getYear() + "-" + parsedDate.getMonth() + "-" + parsedDate.getDayOfMonth() + "");
+            DateTimeFormatter f2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter f3 = DateTimeFormatter.ofPattern("mm");
+            DateTimeFormatter f4 = DateTimeFormatter.ofPattern("a");
+            DateTimeFormatter f6 = DateTimeFormatter.ofPattern("h");
+
+            newDate = parsedDate.format(f2);
+            //newTime = parsedDate.format(f3);
+            newhr = parsedDate.format(f6);
+            newmin = parsedDate.format(f3);
+            String ampm = parsedDate.format(f4) + "";
+            int totalhr;
+            if (ampm.equals("PM") || ampm.equals("pm")) {
+                totalhr = 12 + Integer.parseInt(newhr);
+                newhr = totalhr + "";
+            }
+            newTime = newhr + ":" + newmin;
+            Log.e("Send Date: ", newDate + "");
+            Log.e("Send Time: ", newTime + "");
+            Log.e("AmPm: ", parsedDate.format(f4) + "");
+
+        } catch (Exception e) {
+            try {
+                parsedDate = LocalDateTime.parse(result + "", f);
+                Log.e("parsedate", parsedDate.getYear() + "-" + parsedDate.getMonth() + "-" + parsedDate.getDayOfMonth() + "");
+                DateTimeFormatter f2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                DateTimeFormatter f3 = DateTimeFormatter.ofPattern("mm");
+                DateTimeFormatter f4 = DateTimeFormatter.ofPattern("a");
+                DateTimeFormatter f6 = DateTimeFormatter.ofPattern("h");
+
+                newDate = parsedDate.format(f2);
+                //newTime = parsedDate.format(f3);
+                newhr = parsedDate.format(f6);
+                newmin = parsedDate.format(f3);
+                String ampm = parsedDate.format(f4) + "";
+                int totalhr;
+                if (ampm.equals("PM") || ampm.equals("pm")) {
+                    totalhr = 12 + Integer.parseInt(newhr);
+                    newhr = totalhr + "";
+                }
+                newTime = newhr + ":" + newmin;
+                Log.e("Send Date: ", newDate + "");
+                Log.e("Send Time: ", newTime + "");
+                Log.e("AmPm: ", parsedDate.format(f4) + "");
+
+            } catch (Exception e1) {
+                try {
+                    parsedDate = LocalDateTime.parse(result + "", f);
+                    Log.e("parsedate", parsedDate.getYear() + "-" + parsedDate.getMonth() + "-" + parsedDate.getDayOfMonth() + "");
+                    DateTimeFormatter f2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    DateTimeFormatter f3 = DateTimeFormatter.ofPattern("mm");
+                    DateTimeFormatter f4 = DateTimeFormatter.ofPattern("a");
+                    DateTimeFormatter f6 = DateTimeFormatter.ofPattern("h");
+
+                    newDate = parsedDate.format(f2);
+                    //newTime = parsedDate.format(f3);
+                    newhr = parsedDate.format(f6);
+                    newmin = parsedDate.format(f3);
+                    String ampm = parsedDate.format(f4) + "";
+                    int totalhr;
+                    if (ampm.equals("PM") || ampm.equals("pm")) {
+                        totalhr = 12 + Integer.parseInt(newhr);
+                        newhr = totalhr + "";
+                    }
+                    newTime = newhr + ":" + newmin;
+                    Log.e("Send Date: ", newDate + "");
+                    Log.e("Send Time: ", newTime + "");
+                    Log.e("AmPm: ", parsedDate.format(f4) + "");
+
+                } catch (Exception e2) {
+                    try {
+                        parsedDate = LocalDateTime.parse(result + "", fg);
+                        Log.e("parsedate", parsedDate.getYear() + "-" + parsedDate.getMonth() + "-" + parsedDate.getDayOfMonth() + "");
+                        DateTimeFormatter f2 = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                        DateTimeFormatter f3 = DateTimeFormatter.ofPattern("mm");
+                        DateTimeFormatter f4 = DateTimeFormatter.ofPattern("a");
+                        DateTimeFormatter f6 = DateTimeFormatter.ofPattern("h");
+
+                        newDate = parsedDate.format(f2);
+                        //newTime = parsedDate.format(f3);
+                        newhr = parsedDate.format(f6);
+                        newmin = parsedDate.format(f3);
+                        String ampm = parsedDate.format(f4) + "";
+                        int totalhr;
+                        if (ampm.equals("PM") || ampm.equals("pm")) {
+                            totalhr = 12 + Integer.parseInt(newhr);
+                            newhr = totalhr + "";
+                        }
+                        newTime = newhr + ":" + newmin;
+                        Log.e("Send Date: ", newDate + "");
+                        Log.e("Send Time: ", newTime + "");
+                        Log.e("AmPm: ", parsedDate.format(f4) + "");
+
+                    } catch (Exception e3) {
+                        e3.printStackTrace();
+                        newDate = null;
+                        newTime = null;
+                    }
+                }
+            }
+
+        }
+        String[] arr = MyTimeUtils.getGMTTimeString(uploadingModel.getDate() + "|" + uploadingModel.getTime());
+        newDate = arr[0];
+        newTime = arr[1];
+        String[] corrent = MyTimeUtils.getTime2();
+        result = corrent[1] + " " + corrent[0];
+        tvDescripion.setText("Thank you for your payment.Your video have successfully sent.Selected GMT  Time is: "
+                + result + "Send Date:" + newDate + "SendTime:" + newTime + ".Compress File Size is :" + uploadsize + "MB");
         tvCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -528,11 +672,11 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
 
             }
         });
-        if (!((Activity) context).isFinishing()) {
+        //if (!((Activity) context).isFinishing()) {
             alertDialog.show();
-        } else {
+    /*    } else {
             getUploadingFile(newDate, newTime);
-        }
+        }*/
 
 
     }
@@ -548,8 +692,12 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
 
     private void getUploadingFile(String newDate, String newTime) {
         ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait ...");
-        progressDialog.show();
+        try {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Please wait ...");
+            progressDialog.show();
+        } catch (Exception e) {
+        }
         try {
 
             File file = null;
@@ -580,7 +728,7 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
                 latitude = RequestBody.create(MediaType.parse("multipart/form-data"), "" + latitude1);
                 longitude = RequestBody.create(MediaType.parse("multipart/form-data"), "" + longitude1);
             } else {
-                latitude = RequestBody.create(MediaType.parse("multipart/form-data"), "" );
+                latitude = RequestBody.create(MediaType.parse("multipart/form-data"), "");
                 longitude = RequestBody.create(MediaType.parse("multipart/form-data"), "");
             }
             RequestBody price_token = RequestBody.create(MediaType.parse("multipart/form-data"), "jhenewknek8903");
@@ -590,6 +738,8 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
             RequestBody reciveTime = RequestBody.create(MediaType.parse("multipart/form-data"), newTime);
             RequestBody reciveDate = RequestBody.create(MediaType.parse("multipart/form-data"), newDate);
             RequestBody timezone = RequestBody.create(MediaType.parse("multipart/form-data"), TimeZone.getDefault().getID() + "");
+
+            ProgressDialog finalProgressDialog = progressDialog;
             requestAPI.uploadVideo(fileToUpload, price, latitude, longitude, price_token, reciverEmailId1, reciverEmailId2, reciverEmailId3, reciveTime, devid, reciveDate, timezone, preManager.getAuthToken())
                     .enqueue(new Callback<UserProfile>() {
                         @Override
@@ -599,7 +749,6 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
                                     Intent intent = new Intent(SendingPaymentActivity.this, MainActivity.class);
                                     intent.putExtra("name", "layout_Video");
                                     startActivity(intent);
-                                    finish();
                                     // ((MainActivity) context).setFrag("video");
                                     // Toast.makeText(getContext(), response.body().getMsg(), Toast.LENGTH_LONG).show();
                                 } else
@@ -609,8 +758,10 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
                                 Toast.makeText(SendingPaymentActivity.this, "Please crop the selected Image.It is too large too upload", Toast.LENGTH_LONG).show();
                             } else
                                 Toast.makeText(SendingPaymentActivity.this, response.message(), Toast.LENGTH_LONG).show();
-
-                            progressDialog.dismiss();
+                            try {
+                                finalProgressDialog.dismiss();
+                            } catch (Exception e) {
+                            }
                             Log.e("Login Failed ", " " + response.code());
 
                         }
@@ -620,14 +771,20 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
                             Log.e("Login Api ERROR ", t.getMessage());
                             Toast.makeText(SendingPaymentActivity.this, t.getMessage() + "", Toast.LENGTH_LONG).show();
                             t.printStackTrace();
-                            progressDialog.dismiss();
+                            try {
+                                finalProgressDialog.dismiss();
+                            } catch (Exception e) {
+                            }
                         }
                     });
         } catch (Exception e) {
             Log.e("Login Api ERROR ", e.getMessage());
             Toast.makeText(SendingPaymentActivity.this, e.getMessage() + "", Toast.LENGTH_LONG).show();
             e.printStackTrace();
-            progressDialog.dismiss();
+            try {
+                progressDialog.dismiss();
+            } catch (Exception e1) {
+            }
         }
 
     }
@@ -642,23 +799,12 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
         Log.e("finalproductid", PRODUCT_ID);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void consume(View view) {
         launch(TEST);
         //getUploadingFile("Jan 31, 22", "0:15 AM");
         //showDeleteDialog();
     }
-    private static String bodyToString(final RequestBody request){
-        try {
-            final RequestBody copy = request;
-            final Buffer buffer = new Buffer();
-            copy.writeTo(buffer);
-            return buffer.readUtf8();
-        }
-        catch (final IOException e) {
-            return "did not work";
-        }
-    }
+
     private void launch(String sku) {
         if (!skuDetailsHashMap.isEmpty())
             iapHelper.launchBillingFLow(skuDetailsHashMap.get(sku));
@@ -676,7 +822,7 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
             for (Purchase purchase : purchasedItems) {
                 //Update UI and backend according to purchased items if required
                 // Like in this project I am updating UI for purchased items
-                String sku = purchase.getSkus().get(0);
+                String sku = purchase.getProducts().get(0);
 
             }
         }
@@ -691,7 +837,7 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void updatePurchase(Purchase purchase) {
-        String sku = purchase.getSkus().get(0);
+        String sku = purchase.getProducts().get(0);
         //  Toast.makeText(this, "Sucess" + COIN, Toast.LENGTH_LONG).show();
         showDeleteDialog();
     }
