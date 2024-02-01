@@ -59,6 +59,7 @@ import com.diamond.MyTimeUtils;
 import com.diamond.Security;
 import com.diamond.future.model.UserProfile;
 import com.diamond.future.service.AppLocationService;
+import com.diamond.future.utility.Constant;
 import com.diamond.future.utility.PreManager;
 import com.diamond.future.utility.RequestApi;
 import com.diamond.future.utility.RetroConfig;
@@ -166,6 +167,11 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sending_payment);
         ButterKnife.bind(this);
+        if (Constant.Free.equalsIgnoreCase("Yes")) {
+            PRODUCT_ID = PRODUCT_ID1;
+            amountToPay = "Free";
+            amountToPaysend = "Free";
+        }
        /* COIN = getIntent().getStringExtra("productid");
         TEST = getIntent().getStringExtra("productid");
         Log.e("productsending",TEST);
@@ -293,8 +299,6 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
             @Override
             public void onCompletion(MediaPlayer mp) {
                 // Toast.makeText(getContext(), "Video over", Toast.LENGTH_SHORT).show();
-
-
             }
         });
 
@@ -318,9 +322,9 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
         //MMM dd, yy
         String information = "Date: " + newdate + "\n\n" +
                 "Time: " + uploadingModel.getTime() + "\n\n" +
-                "Receiver 1: " + uploadingModel.getReciver_mail1() + "\n\n" +
-                "Receiver 2: " + uploadingModel.getReciver_mail2() + "\n\n" +
-                "Receiver 3: " + uploadingModel.getReciver_mail3() + "\n\n" +
+                "Receiver 1: " + uploadingModel.getReciver_email1() + "\n\n" +
+                "Receiver 2: " + uploadingModel.getReciver_name2()+ "\n\n" +
+                "Receiver 3: " + uploadingModel.getReciver_number3() + "\n\n" +
                 size + "Mb = " + amountToPay;
         tvInformation.setText(information);
         title.setText("Pay Summary");
@@ -732,9 +736,9 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
                 longitude = RequestBody.create(MediaType.parse("multipart/form-data"), "");
             }
             RequestBody price_token = RequestBody.create(MediaType.parse("multipart/form-data"), "jhenewknek8903");
-            RequestBody reciverEmailId1 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_mail1());
-            RequestBody reciverEmailId2 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_mail2());
-            RequestBody reciverEmailId3 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_mail3());
+            RequestBody reciverEmailId1 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_email1());
+            RequestBody reciverEmailId2 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_name2());
+            RequestBody reciverEmailId3 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_number3());
             RequestBody reciveTime = RequestBody.create(MediaType.parse("multipart/form-data"), newTime);
             RequestBody reciveDate = RequestBody.create(MediaType.parse("multipart/form-data"), newDate);
             RequestBody timezone = RequestBody.create(MediaType.parse("multipart/form-data"), TimeZone.getDefault().getID() + "");
@@ -799,10 +803,13 @@ public class SendingPaymentActivity extends AppCompatActivity implements IAPHelp
         Log.e("finalproductid", PRODUCT_ID);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void consume(View view) {
-        launch(TEST);
-        //getUploadingFile("Jan 31, 22", "0:15 AM");
-        //showDeleteDialog();
+        if (amountToPay.equalsIgnoreCase("Free")) {
+            showDeleteDialog();
+        } else {
+            launch(TEST);
+        }
     }
 
     private void launch(String sku) {

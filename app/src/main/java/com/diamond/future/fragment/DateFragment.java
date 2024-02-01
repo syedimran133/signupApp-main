@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -30,6 +31,7 @@ public class DateFragment extends Fragment {
     LinearLayout llNext;
     PreManager preManager;
     ImageView ivBack;
+    Calendar currentCalendar = Calendar.getInstance();
     public static UploadingModel uploadingModel = new UploadingModel();
   /*  DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -75,45 +77,44 @@ public class DateFragment extends Fragment {
         datePicker.setMinDate(*//*long time*//*);*/
 
         datePicker.setDataSelectListener(new DatePicker.DataSelectListener() {
+
             @Override
             public void onDateSelected(long date, int day, int month, int year) {
-                if (month <= 9)
+                if (month <= 9) {
                     uploadingModel.setDate(day + "-0" + month + "-" + year);
-                else uploadingModel.setDate(day + "-" + month + "-" + year);
-
-
+                } else {
+                    uploadingModel.setDate(day + "-" + month + "-" + year);
+                }
             }
         });
-       /* tvSelectDate.setOnClickListener(V -> {
-            new DatePickerDialog(getContext(), R.style.TimePickerTheme, date, myCalendar
-                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-        });*/
         llNext.setOnClickListener(V -> {
-          /*  if(tvSelectDate.getText().toString().equals("Select Date")){
-                Toast.makeText(getContext(), "Please Select a Date", Toast.LENGTH_LONG).show();
-            }else*/
-            Log.e("selected date", datePicker.getDate() + "");
-            String x = datePicker.getDate()+"";
-
+            String x = datePicker.getDate() + "";
             DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-
-            long milliSeconds= Long.parseLong(x);
+            long milliSeconds = Long.parseLong(x);
             System.out.println(milliSeconds);
-
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(milliSeconds);
+            if (calendar.before(currentCalendar)||calendar.equals(currentCalendar)) {
+                Toast.makeText(getContext(), "Please choose a date in the future, as the current date is not forward-looking.", Toast.LENGTH_SHORT).show();
+            } else {
+                uploadingModel.setDate(formatter.format(calendar.getTime()) + "");
+                ((MainActivity) getContext()).setFrag("timeFrag");
+            }
+           /* Log.e("selected date", datePicker.getDate() + "");
+            String x = datePicker.getDate() + "";
+            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+            long milliSeconds = Long.parseLong(x);
+            System.out.println(milliSeconds);
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(milliSeconds);
             System.out.println(formatter.format(calendar.getTime()));
             Log.e("selected datenew", formatter.format(calendar.getTime()) + "");
             uploadingModel.setDate(formatter.format(calendar.getTime()) + "");
-
-            ((MainActivity) getContext()).setFrag("timeFrag");
+            ((MainActivity) getContext()).setFrag("timeFrag");*/
         });
         ivBack.setOnClickListener(V -> {
             ((MainActivity) getContext()).setFrag("video");
         });
-
-
     }
 
     private void updateLabel() {

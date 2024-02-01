@@ -40,8 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:lineSpacingExtra="5sp"
-            android:text="Video Message to \n the Future"
+            android:text="@string/app_name"
             android:textColor="@color/white"
             android:textSize="25sp" />
 
@@ -223,6 +222,7 @@
 
             <ImageView
                 android:id="@+id/facebook_iv"
+                android:visibility="gone"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="15dp"

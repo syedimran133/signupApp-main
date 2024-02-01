@@ -33,7 +33,7 @@
                 android:layout_centerVertical="true"
                 android:gravity="center"
                 android:lineSpacingExtra="5sp"
-                android:text="Video Message to \nthe Future"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
                 android:textSize="25sp" />
         </RelativeLayout>

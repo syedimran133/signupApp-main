@@ -14,6 +14,7 @@ public class Constant {
     public static final String LOCATION="location";
     public static final String LAT="lat";
     public static final String LOG="log";
+    public static String Free="No";
     public static final String BASE_URL_LINK="http://mtf.ydns.eu/";
    // public static final String MAIN_BASE_URL="http://mtf.ydns.eu/index.php/api/";
     public static final String MAIN_BASE_URL="https://videomessagetofuture.com/api/";

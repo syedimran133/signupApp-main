@@ -23,6 +23,12 @@ import com.diamond.future.fragment.SendingVideoFragment;
 import com.diamond.future.fragment.SettingFragment;
 import com.diamond.future.fragment.TimeFragment;
 import com.diamond.future.fragment.VideoFragment;
+import com.diamond.future.utility.Constant;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.net.URI;
 
@@ -41,6 +47,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         uri= Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/" + R.raw.final_render_earth);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Settings");
+        ref.child("FreeMode").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //In this case, "shalom" will be stored in mName
+                Constant.Free = (String) snapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         initView();
     }
 

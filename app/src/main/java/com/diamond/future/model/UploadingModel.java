@@ -3,7 +3,7 @@ package com.diamond.future.model;
 import android.net.Uri;
 
 public class UploadingModel {
-    String date, time, reciver_mail1, reciver_mail2, reciver_mail3, timeToUpload;
+    String date, time, reciver_email1, reciver_name2, reciver_number3, timeToUpload;
     Uri videouri;
     boolean uploadState;
 
@@ -47,27 +47,27 @@ public class UploadingModel {
         this.time = time;
     }
 
-    public String getReciver_mail1() {
-        return reciver_mail1;
+    public String getReciver_email1() {
+        return reciver_email1;
     }
 
-    public void setReciver_mail1(String reciver_mail1) {
-        this.reciver_mail1 = reciver_mail1;
+    public void setReciver_email1(String reciver_email1) {
+        this.reciver_email1 = reciver_email1;
     }
 
-    public String getReciver_mail2() {
-        return reciver_mail2;
+    public String getReciver_name2() {
+        return reciver_name2;
     }
 
-    public void setReciver_mail2(String reciver_mail2) {
-        this.reciver_mail2 = reciver_mail2;
+    public void setReciver_name2(String reciver_name2) {
+        this.reciver_name2 = reciver_name2;
     }
 
-    public String getReciver_mail3() {
-        return reciver_mail3;
+    public String getReciver_number3() {
+        return reciver_number3;
     }
 
-    public void setReciver_mail3(String reciver_mail3) {
-        this.reciver_mail3 = reciver_mail3;
+    public void setReciver_number3(String reciver_number3) {
+        this.reciver_number3 = reciver_number3;
     }
 }

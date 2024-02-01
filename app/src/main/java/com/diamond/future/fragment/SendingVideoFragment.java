@@ -171,8 +171,6 @@ public class SendingVideoFragment extends Fragment implements Player.EventListen
             checkPermission();
 
         });
-
-
     }
     private void getDeleteDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.CustomAlertDialog);

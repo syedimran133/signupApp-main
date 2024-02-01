@@ -93,7 +93,7 @@ public class VideoFragment extends Fragment {
         appLocationService = new AppLocationService(getContext(), getActivitys());
         initView();
         getloc();
-        checkPermission();
+        //checkPermission();
         return v;
     }
 
@@ -185,18 +185,25 @@ public class VideoFragment extends Fragment {
             }
         }, 500);
         llUpload.setOnClickListener(V -> {
+            if (getContext().checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             recordState = false;
             uploadingModel.setUploadState(true);
             Intent intent = new Intent();
             intent.setType("video/*");
             intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Video"), REQUEST_TAKE_GALLERY_VIDEO);
+            startActivityForResult(Intent.createChooser(intent, "Select Video"), REQUEST_TAKE_GALLERY_VIDEO);}else{
+                requestPermissions();
+            }
         });
         llRecord.setOnClickListener(V -> {
-            recordState = true;
-            uploadingModel.setUploadState(false);
-            checkPermission();
-
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                    == PackageManager.PERMISSION_GRANTED) {
+                recordState = true;
+                uploadingModel.setUploadState(false);
+                checkPermission();
+            }else{
+                requestPermissions();
+            }
         });
 
     }

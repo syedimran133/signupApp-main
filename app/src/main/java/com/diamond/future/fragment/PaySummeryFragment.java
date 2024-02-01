@@ -321,9 +321,9 @@ public class PaySummeryFragment extends Fragment  {
         //MMM dd, yy
         String information = "Date: " + newdate + "\n\n" +
                 "Time: " + uploadingModel.getTime() + "\n\n" +
-                "Receiver 1: " + uploadingModel.getReciver_mail1() + "\n\n" +
-                "Receiver 2: " + uploadingModel.getReciver_mail2() + "\n\n" +
-                "Receiver 3: " + uploadingModel.getReciver_mail3() + "\n\n" +
+                "Receiver : " + uploadingModel.getReciver_email1() + "\n\n" +
+                "Receiver : " + uploadingModel.getReciver_name2() + "\n\n" +
+                "Receiver : " + uploadingModel.getReciver_number3() + "\n\n" +
                 size + "Mb = " + amountToPay;
         tvInformation.setText(information);
         title.setText("Pay Summary");
@@ -756,9 +756,9 @@ public class PaySummeryFragment extends Fragment  {
         RequestBody latitude = RequestBody.create(MediaType.parse("multipart/form-data"), "25.612677");
         RequestBody longitude = RequestBody.create(MediaType.parse("multipart/form-data"), "85.158875");
         RequestBody price_token = RequestBody.create(MediaType.parse("multipart/form-data"), "jhenewknek8903");
-        RequestBody reciverEmailId1 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_mail1());
-        RequestBody reciverEmailId2 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_mail2());
-        RequestBody reciverEmailId3 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_mail3());
+        RequestBody reciverEmailId1 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_email1());
+        RequestBody reciverEmailId2 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_name2());
+        RequestBody reciverEmailId3 = RequestBody.create(MediaType.parse("multipart/form-data"), uploadingModel.getReciver_number3());
         RequestBody reciveTime = RequestBody.create(MediaType.parse("multipart/form-data"), newTime);
         RequestBody reciveDate = RequestBody.create(MediaType.parse("multipart/form-data"), newDate);
         RequestBody timezone = RequestBody.create(MediaType.parse("multipart/form-data"), TimeZone.getDefault().getID()+"");

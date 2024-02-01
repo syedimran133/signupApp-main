@@ -92,14 +92,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:padding="@dimen/_10sdp"
                     android:layout_centerHorizontal="true"
-                    android:text="Pay storage and delivery"
                     android:layout_centerVertical="true"
-                    android:textColor="@color/black"/>
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Send to the Future"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>
